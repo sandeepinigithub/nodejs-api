@@ -3,17 +3,12 @@ const app = express();
 const morgan = require("morgan");
 
 //bring in routes
-const {getPosts} = require("./routes/post");
-const myOwnMiddleware = (req, res, next) =>{
-    console.log("Middleware Applied !!");
-    next();
-};
+const postRoutes = require("./routes/post"); // we do not need destruction of just one method 
 
 //middleware
 app.use(morgan("dev"));
-app.use(myOwnMiddleware);
 
-app.get("/",getPosts);
+app.use("/",postRoutes); // we here pass postRoutes ,this is now middleware 
 
 const port = 3000;
 app.listen(port, () => {
